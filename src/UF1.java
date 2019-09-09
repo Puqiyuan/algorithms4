@@ -1,9 +1,9 @@
-public class UF
+public class UF1
 {
 	private int[] id;
 	private int count;
 
-	public UF(int N)
+	public UF1(int N)
 	{
 		count = N;
 		id = new int[N];
@@ -23,20 +23,18 @@ public class UF
 
 	public int find(int p)
 	{
-		return id[p];
+		while (p != id[p]) p = id[p];
+		return p;
 	}
 
 	public void union(int p, int q)
 	{
-		int pID = find(p);
-		int qID = find(q);
-
-		if (pID == qID) return;
-
-		for (int i = 0; i < id.length; i++)
-			{
-				if (id[i] == pID) id[i] = qID;
-			}
+		int pRoot = find(p);
+		int qRoot = find(p);
+		if (pRoot == qRoot)
+			return;
+		
+		id[pRoot] = qRoot;
 		count--;
 	}
 
